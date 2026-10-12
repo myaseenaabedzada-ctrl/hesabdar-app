@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>حسابدار انبار</title>
+<link rel="stylesheet" href="style.css">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#2c3e50">
+</head>
+<body>
+
+<div id="loginScreen" class="login-screen">
+  <div class="login-box">
+    <h1>🔐 ورود به حسابدار</h1>
+    <input id="loginPass" type="password" placeholder="رمز عبور">
+    <button onclick="login()">ورود</button>
+    <p id="loginMsg"></p>
+    <small>رمز پیش‌فرض: <b>1234</b></small>
+  </div>
+</div>
+
+<div id="app" style="display:none">
+<header>
+  <h1>📦 حسابدار انبار</h1>
+  <button class="logout" onclick="logout()">خروج</button>
+</header>
+
+<nav class="tabs">
+  <button class="tab active" data-tab="buy">🛒 خرید</button>
+  <button class="tab" data-tab="sell">💰 فروش</button>
+  <button class="tab" data-tab="stock">📦 انبار</button>
+  <button class="tab" data-tab="customer">👥 مشتریان</button>
+  <button class="tab" data-tab="report">📊 گزارش</button>
+  <button class="tab" data-tab="settings">⚙️ تنظیمات</button>
+</nav>
+
+<section id="buy" class="panel active">
+  <h2>ثبت خرید</h2>
+  <input id="buyName" placeholder="نام کالا">
+  <input id="buyQty" type="number" placeholder="تعداد">
+  <input id="buyPrice" type="number" placeholder="قیمت خرید">
+  <button onclick="addBuy()">➕ افزودن به انبار</button>
+</section>
+
+<section id="sell" class="panel">
+  <h2>ثبت فروش</h2>
+  <input id="sellName" placeholder="نام کالا">
+  <input id="sellQty" type="number" placeholder="تعداد">
+  <input id="sellPrice" type="number" placeholder="قیمت فروش">
+  <button onclick="addSell()">💰 ثبت فروش</button>
+</section>
+
+<section id="stock" class="panel">
+  <h2>موجودی انبار</h2>
+  <table id="stockTable">
+    <thead><tr><th>کالا</th><th>تعداد</th><th>میانگین خرید</th></tr></thead>
+    <tbody></tbody>
+  </table>
+</section>
+
+<section id="customer" class="panel">
+  <h2>مشتریان</h2>
+  <input id="custName" placeholder="نام مشتری">
+  <input id="custPhone" placeholder="شماره تماس">
+  <button onclick="addCustomer()">➕ افزودن مشتری</button>
+  <table id="custTable">
+    <thead><tr><th>نام</th><th>تلفن</th><th>بدهی</th></tr></thead>
+    <tbody></tbody>
+  </table>
+</section>
+
+<section id="report" class="panel">
+  <h2>گزارش سود و زیان</h2>
+  <div id="reportBox"></div>
+  <button onclick="exportExcel()">📄 خروجی Excel</button>
+  <button onclick="resetData()" style="background:#e74c3c">🗑 پاک کردن داده‌ها</button>
+</section>
+
+<section id="settings" class="panel">
+  <h2>تنظیمات</h2>
+  <input id="newPass" type="password" placeholder="رمز جدید">
+  <button onclick="changePass()">💾 ذخیره رمز</button>
+</section>
+
+</div>
+
+<script src="auth.js"></script>
+<script src="app.js"></script>
+<script src="export.js"></script>
+<script src="firebase.js"></script>
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('sw.js');
+  }
+</script>
+</body>
+</html>
